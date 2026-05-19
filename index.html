@@ -163,7 +163,7 @@
         .radio-option { display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: normal; }
         .radio-option input { width: auto; cursor: pointer; }
 
-        /* --- FOOTER / LIÊN HỆ --- */
+        /* --- FOOTER / LIÊN HỆ DƯỚI CÙNG --- */
         footer { 
             background-color: #222; 
             color: white; 
@@ -172,7 +172,7 @@
             margin-top: 40px; 
         }
 
-        /* --- LỚP NỀN MỜ CHO MENU ĐIỆN THOẠI (Nằm đè lên thanh công cụ) --- */
+        /* --- LỚP NỀN MỜ CHO MENU ĐIỆN THOẠI --- */
         .menu-overlay {
             display: none;
             position: fixed;
@@ -180,9 +180,9 @@
             left: 0;
             width: 100%; 
             height: 100vh;
-            background-color: rgba(0,0,0,0.6); /* Tối hơn một chút */
-            backdrop-filter: blur(2px); /* Thêm hiệu ứng blur chuyên nghiệp */
-            z-index: 1400; /* Cao hơn fixed header (1000) */
+            background-color: rgba(0,0,0,0.6); 
+            backdrop-filter: blur(2px); 
+            z-index: 1400; 
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -211,7 +211,7 @@
                 padding: 30px 20px;
                 gap: 0;
                 transition: right 0.3s ease-in-out;
-                z-index: 1500; /* Cao nhất */
+                z-index: 1500; 
             }
 
             .nav-links.active { right: 0; }
@@ -226,11 +226,11 @@
             .section-title { font-size: 1.8rem; margin-bottom: 25px; }
             .modal-content { margin: 15% auto; padding: 20px; }
 
-            /* --- VÔ HIỆU HÓA HOÀN TOÀN THANH CÔNG CỤ KHI MENU MỞ (Dựa trên Body class) --- */
+            /* --- VÔ HIỆU HÓA HOÀN TOÀN THANH CÔNG CỤ KHI MENU MỞ --- */
             body.menu-open #main-header nav .logo,
             body.menu-open #main-header nav .toolbar-right {
-                filter: brightness(0.6) blur(2px); /* Làm tối và mờ visual */
-                pointer-events: none; /* Khóa không cho bấm */
+                filter: brightness(0.6) blur(2px); 
+                pointer-events: none; 
                 transition: 0.3s;
             }
         }
@@ -245,15 +245,13 @@
         <li><a href="#trangchu" onclick="closeMenu()">Trang chủ</a></li>
         <li><a href="#dichvu" onclick="closeMenu()">Dịch vụ</a></li>
         <li><a href="#quatang" onclick="closeMenu()">Quà tặng</a></li>
-        <li><a href="#lienhe" onclick="closeMenu()">Liên hệ</a></li>
+        <li><a href="javascript:void(0)" onclick="openContactModal(); closeMenu()">Liên hệ</a></li>
     </ul>
 
     <header id="main-header">
         <nav>
             <div class="logo">SweetGift.</div>
-            
             <div class="desktop-menu-placeholder" id="desktopMenuContainer"></div>
-
             <div class="toolbar-right">
                 <a id="cart-menu-btn">🛒 <span class="cart-text">Giỏ hàng</span> (<span id="cart-count">0</span>)</a>
                 <span class="menu-toggle-btn" onclick="toggleMenu()">☰</span>
@@ -339,15 +337,15 @@
             <h2 style="margin-bottom: 20px; color: #d4af37;">Đăng ký tư vấn quà tặng</h2>
             <form onsubmit="handleConsultSubmit(event)">
                 <div class="form-group">
-                    <label for="consult-name">Họ và tên <span style="color:red;">*</span></label>
+                    <label>Họ và tên <span style="color:red;">*</span></label>
                     <input type="text" id="consult-name" placeholder="Ví dụ: Nguyễn Văn A" required>
                 </div>
                 <div class="form-group">
-                    <label for="consult-phone">Số điện thoại <span style="color:red;">*</span></label>
+                    <label>Số điện thoại <span style="color:red;">*</span></label>
                     <input type="tel" id="consult-phone" placeholder="Ví dụ: 0912345678" required>
                 </div>
                 <div class="form-group">
-                    <label for="consult-email">Địa chỉ Email <span style="color:red;">*</span></label>
+                    <label>Địa chỉ Email <span style="color:red;">*</span></label>
                     <input type="email" id="consult-email" placeholder="Ví dụ: name@example.com" required>
                 </div>
                 <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">Gửi thông tin đăng ký</button>
@@ -361,19 +359,19 @@
             <h2 style="margin-bottom: 20px; color: #d4af37;">Thông tin nhận hàng</h2>
             <form onsubmit="handleOrderSubmit(event)">
                 <div class="form-group">
-                    <label for="order-name">Họ và tên người nhận <span style="color:red;">*</span></label>
+                    <label>Họ và tên người nhận <span style="color:red;">*</span></label>
                     <input type="text" id="order-name" required>
                 </div>
                 <div class="form-group">
-                    <label for="order-phone">Số điện thoại liên hệ <span style="color:red;">*</span></label>
+                    <label>Số điện thoại liên hệ <span style="color:red;">*</span></label>
                     <input type="tel" id="order-phone" required>
                 </div>
                 <div class="form-group">
-                    <label for="order-email">Địa chỉ Email <span style="color:red;">*</span></label>
+                    <label>Địa chỉ Email <span style="color:red;">*</span></label>
                     <input type="email" id="order-email" required>
                 </div>
                 <div class="form-group">
-                    <label for="order-address">Địa chỉ giao hàng đầy đủ <span style="color:red;">*</span></label>
+                    <label>Địa chỉ giao hàng đầy đủ <span style="color:red;">*</span></label>
                     <input type="text" id="order-address" placeholder="Số nhà, tên đường, phường, quận, TP..." required>
                 </div>
                 <div class="form-group">
@@ -394,97 +392,116 @@
         </div>
     </div>
 
-    <footer id="lienhe">
-        <h2>Sẵn sàng bắt đầu dự án cùng chúng tôi ngay thôi nào!</h2>
+    <div id="contact-main-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeContactModal()">&times;</span>
+            <h2 style="margin-bottom: 15px; color: #d4af37; text-align: center;">Thông tin liên hệ</h2>
+            
+            <div style="background: #fdfbf7; padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #d4af37; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                <p style="margin-bottom: 8px;"><strong>🏢 Doanh nghiệp:</strong> SweetGift.</p>
+                <p style="margin-bottom: 8px;"><strong>📞 Điện thoại:</strong> 0123 456 789</p>
+                <p style="margin-bottom: 8px;"><strong>📧 Email:</strong> Nhom04_LayLoi_DMST@giftdesign.vn</p>
+                <p><strong>📍 Địa chỉ:</strong> 123 Đường ABC, Quận XYZ, TP. Hà Nội</p>
+            </div>
+
+            <h3 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid #eee; padding-bottom: 10px;">Bạn có thể để lại thông tin để nhận tư vấn thêm</h3>
+            <form onsubmit="handleMainContactSubmit(event)">
+                <div class="form-group">
+                    <label>Họ và tên của bạn <span style="color:red;">*</span></label>
+                    <input type="text" id="main-contact-name" placeholder="Nhập họ và tên..." required>
+                </div>
+                <div class="form-group">
+                    <label>Số điện thoại <span style="color:red;">*</span></label>
+                    <input type="tel" id="main-contact-phone" placeholder="Nhập số điện thoại để chúng tôi gọi lại..." required>
+                </div>
+                <div class="form-group">
+                    <label>Email (Không bắt buộc)</label>
+                    <input type="email" id="main-contact-email" placeholder="Nhập email...">
+                </div>
+                <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">Gửi yêu cầu liên hệ</button>
+            </form>
+        </div>
+    </div>
+
+    <footer id="lienhe_footer">
+        <h2>Bắt đầu dự án cùng chúng tôi ngay thôi nào!</h2>
         <p style="margin: 15px 0;">Email: Nhom04_LayLoi_DMST@giftdesign.vn | Hotline: 0123 456 789</p>
         <p>&copy; 2026 SweetGift. Thiết kế bằng cả trái tim 💛.</p>
     </footer>
 
     <script>
-        // --- 1. ĐIỀU KHIỂN THANH BÊN & OVERLAY & BODY CLASS ---
+        // --- 1. ĐIỀU KHIỂN THANH BÊN & OVERLAY ---
         const navLinks = document.getElementById('navLinks');
         const menuOverlay = document.getElementById('menuOverlay');
         const desktopMenuContainer = document.getElementById('desktopMenuContainer');
 
-        // Hàm xử lý di chuyển vị trí Nav Links tùy theo kích thước màn hình
         function adjustMenuStructure() {
             if (window.innerWidth > 768) {
-                // Trên Desktop: Di chuyển navLinks VÀO TRONG header->nav->container
                 if (desktopMenuContainer && !desktopMenuContainer.contains(navLinks)) {
                     desktopMenuContainer.appendChild(navLinks);
-                    // Đảm bảo đóng menu di động nếu đang mở
                     document.body.classList.remove('menu-open');
                     navLinks.classList.remove('active');
                     if(menuOverlay) menuOverlay.classList.remove('active');
                 }
             } else {
-                // Trên Mobile: Di chuyển navLinks RA NGOÀI body
-                if (document.body.contains(navLinks) && !desktopMenuContainer.contains(navLinks)) {
-                     // Nếu nó đã nằm ngoài sẵn thì không làm gì cả
-                } else {
+                if (!document.body.contains(navLinks) || desktopMenuContainer.contains(navLinks)) {
                     document.body.insertBefore(navLinks, document.body.firstChild);
                 }
             }
         }
 
-        // Chạy khi tải trang và khi thay đổi kích thước
         window.addEventListener('load', adjustMenuStructure);
         window.addEventListener('resize', adjustMenuStructure);
 
         function toggleMenu() {
-            // Chỉ hoạt động trên mobile
             if (window.innerWidth <= 768) {
                 const isActive = navLinks.classList.contains('active');
-                
                 if (isActive) {
-                    // Đóng menu
                     closeMenu();
                 } else {
-                    // Mở menu
                     navLinks.classList.add('active');
                     if(menuOverlay) menuOverlay.classList.add('active');
-                    document.body.classList.add('menu-open'); // Khóa Header trắng
+                    document.body.classList.add('menu-open');
                 }
             }
         }
 
         function closeMenu() {
-            // Chỉ hoạt động trên mobile
             if (window.innerWidth <= 768) {
                 navLinks.classList.remove('active');
                 if(menuOverlay) menuOverlay.classList.remove('active');
-                document.body.classList.remove('menu-open'); // Mở khóa Header trắng
+                document.body.classList.remove('menu-open');
             }
         }
 
-        // --- 2. LOGIC QUẢN LÝ CÁC CỬA SỔ MODAL (GIỮ NGUYÊN) ---
+        // --- 2. LOGIC QUẢN LÝ CÁC CỬA SỔ MODAL ---
         const cartModal = document.getElementById('cart-modal');
         const consultModal = document.getElementById('consult-modal');
         const orderInfoModal = document.getElementById('order-info-modal');
+        const contactMainModal = document.getElementById('contact-main-modal'); 
         const cartMenuBtn = document.getElementById('cart-menu-btn');
 
-        // Các hàm đóng mở Modal Giỏ hàng
         cartMenuBtn.onclick = () => cartModal.style.display = "block";
         function closeCartModal() { cartModal.style.display = "none"; }
 
-        // Các hàm đóng mở Modal Tư vấn
         function openConsultModal() { consultModal.style.display = "block"; }
         function closeConsultModal() { consultModal.style.display = "none"; }
 
-        // Hàm đóng ô nhập thông tin đơn hàng
         function closeOrderModal() { orderInfoModal.style.display = "none"; }
 
-        // Đóng bất kỳ ô cửa sổ nào khi bấm chuột ra ngoài vùng trắng
+        function openContactModal() { contactMainModal.style.display = "block"; }
+        function closeContactModal() { contactMainModal.style.display = "none"; }
+
         window.onclick = (event) => { 
             if (event.target == cartModal) cartModal.style.display = "none"; 
             if (event.target == consultModal) consultModal.style.display = "none"; 
             if (event.target == orderInfoModal) orderInfoModal.style.display = "none"; 
+            if (event.target == contactMainModal) contactMainModal.style.display = "none"; 
         }
 
-        // --- 3. XỬ LÝ DỮ LIỆU ĐĂNG KÝ TƯ VẤN (GIỮ NGUYÊN) ---
+        // --- 3. XỬ LÝ DỮ LIỆU ĐĂNG KÝ (TƯ VẤN SẢN PHẨM) - IN ĐẦY ĐỦ ---
         function handleConsultSubmit(event) {
             event.preventDefault(); 
-            
             const name = document.getElementById('consult-name').value;
             const phone = document.getElementById('consult-phone').value;
             const email = document.getElementById('consult-email').value;
@@ -495,7 +512,20 @@
             closeConsultModal(); 
         }
 
-        // --- 4. LOGIC XỬ LÝ GIỎ HÀNG (GIỮ NGUYÊN) ---
+        // --- XỬ LÝ DỮ LIỆU YÊU CẦU LIÊN HỆ TỔNG HỢP - IN ĐẦY ĐỦ ---
+        function handleMainContactSubmit(event) {
+            event.preventDefault(); 
+            const name = document.getElementById('main-contact-name').value;
+            const phone = document.getElementById('main-contact-phone').value;
+            const email = document.getElementById('main-contact-email').value || "Không cung cấp";
+            
+            alert(`Gửi yêu cầu liên hệ thành công!\n\nThông tin của bạn:\n- Họ và tên: ${name}\n- Số điện thoại: ${phone}\n- Email: ${email}\n\nĐội ngũ SweetGift. sẽ trực tiếp gọi điện lại để hỗ trợ bạn nhanh nhất nhé.`);
+            
+            event.target.reset(); 
+            closeContactModal(); 
+        }
+
+        // --- 4. LOGIC XỬ LÝ GIỎ HÀNG ---
         let cart = [];
         const cartCount = document.getElementById('cart-count');
         const cartItemsContainer = document.getElementById('cart-items-container');
@@ -515,16 +545,13 @@
 
         function updateCartUI() {
             cartCount.innerText = cart.length;
-
             if (cart.length === 0) {
                 cartItemsContainer.innerHTML = "<p>Giỏ hàng đang trống.</p>";
                 cartTotalPrice.innerText = "0 VNĐ";
                 return;
             }
-
             let html = "";
             let total = 0;
-            
             cart.forEach((item, index) => {
                 html += `
                     <div class="cart-item">
@@ -536,7 +563,6 @@
                 `;
                 total += item.price;
             });
-
             cartItemsContainer.innerHTML = html;
             cartTotalPrice.innerText = total.toLocaleString('vi-VN') + " VNĐ";
         }
@@ -546,13 +572,12 @@
             updateCartUI();
         }
 
-        // --- 5. LOGIC TIẾN HÀNH ĐẶT HÀNG (GIỮ NGUYÊN) ---
+        // --- 5. LOGIC TIẾN HÀNH ĐẶT HÀNG - IN ĐẦY ĐỦ THÔNG TIN ---
         function checkout() {
             if (cart.length === 0) {
                 alert("Giỏ hàng của bạn đang trống!");
                 return;
             }
-            // Mở ô điền thông tin và đóng giỏ hàng
             closeCartModal();
             orderInfoModal.style.display = "block";
         }
@@ -565,10 +590,10 @@
             const email = document.getElementById('order-email').value;
             const address = document.getElementById('order-address').value;
             const shippingMethod = document.querySelector('input[name="shipping-method"]:checked').value;
+            const totalPrice = cartTotalPrice.innerText; // Lấy tổng tiền từ giỏ hàng
 
-            alert(`🎉 ĐẶT HÀNG THÀNH CÔNG!\n\nThông tin người nhận:\n- Họ tên: ${name}\n- Số điện thoại: ${phone}\n- Email: ${email}\n- Địa chỉ: ${address}\n- Hình thức ship: ${shippingMethod}\n- Tổng thanh toán: ${cartTotalPrice.innerText}\n\nCảm ơn bạn! Chúng tôi sẽ gọi điện xác thực đơn hàng trong vòng vài phút tới.`);
+            alert(`🎉 ĐẶT HÀNG THÀNH CÔNG!\n\nThông tin người nhận:\n- Họ tên: ${name}\n- Số điện thoại: ${phone}\n- Email: ${email}\n- Địa chỉ giao hàng: ${address}\n- Hình thức vận chuyển: ${shippingMethod}\n- Tổng thanh toán: ${totalPrice}\n\nCảm ơn bạn! Chúng tôi sẽ gọi điện xác thực đơn hàng trong vòng vài phút tới.`);
 
-            // Reset
             cart = []; 
             updateCartUI(); 
             event.target.reset(); 
