@@ -251,6 +251,11 @@
             margin: 10px 0;
         }
 
+        /* --- KHÓA CUỘN TRANG KHI MỞ CỬA SỔ / MENU --- */
+        body.no-scroll {
+            overflow: hidden !important;
+        }
+
         /* --- CẤU HÌNH CỬA SỔ MODAL CHUNG --- */
         .modal {
             display: none;
@@ -616,15 +621,15 @@
             <form onsubmit="handleOrderSubmit(event)">
                 <div class="form-group">
                     <label>Họ và tên người nhận <span style="color:red;">*</span></label>
-                    <input type="text" id="order-name" required>
+                    <input type="text" id="order-name" placeholder="Ví dụ: Nguyễn Văn A" required>
                 </div>
                 <div class="form-group">
                     <label>Số điện thoại liên hệ <span style="color:red;">*</span></label>
-                    <input type="tel" id="order-phone" required>
+                    <input type="tel" id="order-phone" placeholder="Ví dụ: 0912345678" required>
                 </div>
                 <div class="form-group">
                     <label>Địa chỉ Email <span style="color:red;">*</span></label>
-                    <input type="email" id="order-email" required>
+                    <input type="email" id="order-email" placeholder="Ví dụ: name@example.com" required>
                 </div>
                 <div class="form-group">
                     <label>Địa chỉ giao hàng đầy đủ <span style="color:red;">*</span></label>
@@ -667,16 +672,16 @@
             <form onsubmit="handleMainContactSubmit(event)">
                 <div class="form-group">
                     <label>Họ và tên của bạn <span style="color:red;">*</span></label>
-                    <input type="text" id="main-contact-name" placeholder="Nhập họ và tên..." required>
+                    <input type="text" id="main-contact-name" placeholder="Ví dụ: Nguyễn Văn A" required>
                 </div>
                 <div class="form-group">
                     <label>Số điện thoại <span style="color:red;">*</span></label>
-                    <input type="tel" id="main-contact-phone" placeholder="Nhập số điện thoại để chúng tôi gọi lại..."
+                    <input type="tel" id="main-contact-phone" placeholder="Ví dụ: 0912345678"
                         required>
                 </div>
                 <div class="form-group">
                     <label>Email (Không bắt buộc)</label>
-                    <input type="email" id="main-contact-email" placeholder="Nhập email...">
+                    <input type="email" id="main-contact-email" placeholder="Ví dụ: name@example.com">
                 </div>
                 <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">Gửi yêu cầu liên hệ</button>
             </form>
@@ -696,13 +701,13 @@
                 history.scrollRestoration = 'auto';
             }
 
-            // 2. Dùng setTimeout tạo một độ trễ rất nhỏ (100 mili-giây) 
+            // 2. Dùng setTimeout tạo một độ trễ rất nhỏ (200 mili-giây) 
             // để đợi trình duyệt khôi phục xong vị trí cũ, sau đó mới kích hoạt cuộn mượt lên đầu
             setTimeout(function () {
                 window.scrollTo({
                     top: 0,
                     left: 0,
-                    behavior: 'smooth' // Đây là lệnh tạo hiệu ứng cuộn từ từ
+                    behavior: 'smooth' 
                 });
             }, 200);
         });
@@ -717,6 +722,7 @@
                 if (desktopMenuContainer && !desktopMenuContainer.contains(navLinks)) {
                     desktopMenuContainer.appendChild(navLinks);
                     document.body.classList.remove('menu-open');
+                    document.body.classList.remove('no-scroll'); // Đảm bảo mở khóa cuộn
                     navLinks.classList.remove('active');
                     if (menuOverlay) menuOverlay.classList.remove('active');
                 }
@@ -739,6 +745,7 @@
                     navLinks.classList.add('active');
                     if (menuOverlay) menuOverlay.classList.add('active');
                     document.body.classList.add('menu-open');
+                    document.body.classList.add('no-scroll'); // Khóa cuộn khi mở menu
                 }
             }
         }
@@ -748,6 +755,7 @@
                 navLinks.classList.remove('active');
                 if (menuOverlay) menuOverlay.classList.remove('active');
                 document.body.classList.remove('menu-open');
+                document.body.classList.remove('no-scroll'); // Mở khóa cuộn khi đóng menu
             }
         }
 
@@ -758,25 +766,37 @@
         const contactMainModal = document.getElementById('contact-main-modal');
         const cartMenuBtn = document.getElementById('cart-menu-btn');
 
-        cartMenuBtn.onclick = () => cartModal.style.display = "block";
-        function closeCartModal() { cartModal.style.display = "none"; }
-
-        function openConsultModal() { consultModal.style.display = "block"; }
-        function closeConsultModal() { consultModal.style.display = "none"; }
-
-        function closeOrderModal() { orderInfoModal.style.display = "none"; }
-
-        function openContactModal() { contactMainModal.style.display = "block"; }
-        function closeContactModal() { contactMainModal.style.display = "none"; }
-
-        window.onclick = (event) => {
-            if (event.target == cartModal) cartModal.style.display = "none";
-            if (event.target == consultModal) consultModal.style.display = "none";
-            if (event.target == orderInfoModal) orderInfoModal.style.display = "none";
-            if (event.target == contactMainModal) contactMainModal.style.display = "none";
+        // Hàm dùng chung để mở và khóa cuộn nền
+        function openModal(modal) {
+            modal.style.display = "block";
+            document.body.classList.add('no-scroll'); 
         }
 
-        // --- 3. XỬ LÝ DỮ LIỆU ĐĂNG KÝ (TƯ VẤN SẢN PHẨM) - IN ĐẦY ĐỦ ---
+        // Hàm dùng chung để đóng và mở khóa cuộn nền
+        function closeModal(modal) {
+            modal.style.display = "none";
+            document.body.classList.remove('no-scroll'); 
+        }
+
+        cartMenuBtn.onclick = () => openModal(cartModal);
+        function closeCartModal() { closeModal(cartModal); }
+
+        function openConsultModal() { openModal(consultModal); }
+        function closeConsultModal() { closeModal(consultModal); }
+
+        function closeOrderModal() { closeModal(orderInfoModal); }
+
+        function openContactModal() { openModal(contactMainModal); }
+        function closeContactModal() { closeModal(contactMainModal); }
+
+        window.onclick = (event) => {
+            if (event.target == cartModal) closeCartModal();
+            if (event.target == consultModal) closeConsultModal();
+            if (event.target == orderInfoModal) closeOrderModal();
+            if (event.target == contactMainModal) closeContactModal();
+        }
+
+        // --- 3. XỬ LÝ DỮ LIỆU ĐĂNG KÝ (TƯ VẤN SẢN PHẨM) ---
         function handleConsultSubmit(event) {
             event.preventDefault();
             const name = document.getElementById('consult-name').value;
@@ -789,7 +809,7 @@
             closeConsultModal();
         }
 
-        // --- XỬ LÝ DỮ LIỆU YÊU CẦU LIÊN HỆ TỔNG HỢP - IN ĐẦY ĐỦ ---
+        // --- XỬ LÝ DỮ LIỆU YÊU CẦU LIÊN HỆ TỔNG HỢP ---
         function handleMainContactSubmit(event) {
             event.preventDefault();
             const name = document.getElementById('main-contact-name').value;
@@ -849,14 +869,14 @@
             updateCartUI();
         }
 
-        // --- 5. LOGIC TIẾN HÀNH ĐẶT HÀNG - IN ĐẦY ĐỦ THÔNG TIN ---
+        // --- 5. LOGIC TIẾN HÀNH ĐẶT HÀNG ---
         function checkout() {
             if (cart.length === 0) {
                 alert("Giỏ hàng của bạn đang trống!");
                 return;
             }
             closeCartModal();
-            orderInfoModal.style.display = "block";
+            openModal(orderInfoModal); // Gọi hàm mở modal để khóa cuộn nền
         }
 
         function handleOrderSubmit(event) {
