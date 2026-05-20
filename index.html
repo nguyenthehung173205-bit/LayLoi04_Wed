@@ -15,6 +15,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent; /* Xóa ô vuông xanh khi chạm trên điện thoại */
         }
         body {
             line-height: 1.6;
@@ -24,6 +25,22 @@
         a {
             text-decoration: none;
             color: inherit;
+        }
+
+        /* Loại bỏ viền xanh mặc định của trình duyệt khi click hoặc giữ phím */
+        button:focus, a:focus, input:focus, select:focus, textarea:focus {
+            outline: none !important;
+        }
+
+        /* HIỆU ỨNG LÀM MỜ CHUYÊN NGHIỆP KHI BẤM (ACTIVE STATE) */
+        .btn:active, 
+        #cart-menu-btn:active, 
+        .close-btn:active, 
+        .menu-toggle-btn:active, 
+        .nav-links li a:active,
+        .close-sidebar-btn:active {
+            opacity: 0.7 !important;
+            transition: opacity 0.1s ease;
         }
 
         /* --- Thanh Điều hướng (Header) --- */
@@ -118,7 +135,7 @@
             border-radius: 5px;
             font-size: 1.1rem;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: background 0.3s, opacity 0.2s;
             display: inline-block;
         }
         .btn:hover { background-color: #b5952f; }
@@ -590,7 +607,7 @@
             const email = document.getElementById('order-email').value;
             const address = document.getElementById('order-address').value;
             const shippingMethod = document.querySelector('input[name="shipping-method"]:checked').value;
-            const totalPrice = cartTotalPrice.innerText; // Lấy tổng tiền từ giỏ hàng
+            const totalPrice = cartTotalPrice.innerText; 
 
             alert(`🎉 ĐẶT HÀNG THÀNH CÔNG!\n\nThông tin người nhận:\n- Họ tên: ${name}\n- Số điện thoại: ${phone}\n- Email: ${email}\n- Địa chỉ giao hàng: ${address}\n- Hình thức vận chuyển: ${shippingMethod}\n- Tổng thanh toán: ${totalPrice}\n\nCảm ơn bạn! Chúng tôi sẽ gọi điện xác thực đơn hàng trong vòng vài phút tới.`);
 
