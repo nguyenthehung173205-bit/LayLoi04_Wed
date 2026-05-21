@@ -440,6 +440,7 @@
                 right: -260px;
                 width: 260px;
                 height: 100vh;
+                /* Chiều cao cố định bằng màn hình */
                 background-color: #fff;
                 box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
                 flex-direction: column;
@@ -449,6 +450,17 @@
                 gap: 0;
                 transition: right 0.3s ease-in-out;
                 z-index: 1500;
+
+                /* --- THÊM THUỘC TÍNH NÀY ĐỂ BẬT TÍNH NĂNG CUỘN --- */
+                overflow-y: auto;
+
+                /* Giúp hiệu ứng cuộn trên iPhone/iPad mượt mà hơn */
+                -webkit-overflow-scrolling: touch;
+            }
+
+            /* Ẩn thanh cuộn của menu trên điện thoại */
+            .nav-links::-webkit-scrollbar {
+                display: none;
             }
 
             .nav-links.active {
@@ -506,6 +518,33 @@
                 transition: 0.3s;
             }
         }
+
+        /* --- CSS CHO LOGO TRÊN MENU ĐIỆN THOẠI --- */
+        /* Mặc định ẩn trên máy tính */
+        .mobile-menu-header {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+
+            /* Chỉ hiển thị trên điện thoại */
+            .mobile-menu-header {
+                display: flex !important;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                padding-bottom: 15px;
+                margin-bottom: 10px;
+                border-bottom: 2px solid #f4f4f4;
+                /* Đường viền mỏng ngăn cách với các mục ở dưới */
+            }
+
+            /* Tắt margin thừa của nút đóng để nó thẳng hàng với Logo */
+            .mobile-menu-header .close-sidebar-btn {
+                margin-bottom: 0;
+                line-height: 1;
+            }
+        }
     </style>
 </head>
 
@@ -514,7 +553,11 @@
     <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
 
     <ul class="nav-links" id="navLinks">
-        <span class="close-sidebar-btn" onclick="toggleMenu()">&times;</span>
+        <li class="mobile-menu-header">
+            <span class="logo">SweetGift.</span>
+            <span class="close-sidebar-btn" onclick="toggleMenu()">&times;</span>
+        </li>
+
         <li><a href="#trangchu" onclick="closeMenu()">Trang chủ</a></li>
         <li><a href="#dichvu" onclick="closeMenu()">Dịch vụ</a></li>
         <li><a href="#quatang" onclick="closeMenu()">Quà tặng</a></li>
@@ -910,13 +953,20 @@
                     <div class="cart-item" style="align-items: center;">
                         <div style="flex: 1;">
                             <span style="font-weight: 500;">${item.name}</span>
-                            <div style="font-size: 0.85rem; color: #777; margin-top: 3px;">
-                                ${item.price.toLocaleString('vi-VN')} đ <span style="color:#d4af37; font-weight:bold; margin-left: 5px;">x ${item.quantity}</span>
+                            <div style="font-size: 0.85rem; color: #777; margin-top: 8px; display: flex; align-items: center; gap: 12px;">
+                                <span>${item.price.toLocaleString('vi-VN')} đ</span>
+                                
+                                <div style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 4px; overflow: hidden; height: 26px;">
+                                    <button onclick="decreaseQuantity(${index})" style="width: 26px; height: 100%; background: #f9f9f9; border: none; border-right: 1px solid #ddd; cursor: pointer; font-weight: bold; color: #555;">-</button>
+                                    <span style="padding: 0 12px; font-weight: bold; color: #d4af37; font-size: 0.95rem; background: #fff; height: 100%; display: flex; align-items: center;">${item.quantity}</span>
+                                    <button onclick="increaseQuantity(${index})" style="width: 26px; height: 100%; background: #f9f9f9; border: none; border-left: 1px solid #ddd; cursor: pointer; font-weight: bold; color: #555;">+</button>
+                                </div>
+
                             </div>
                         </div>
                         <div style="font-weight: 500;">
                             ${itemTotal.toLocaleString('vi-VN')} đ 
-                            <span style="color:red; cursor:pointer; margin-left:15px; font-weight:bold; font-size: 1.2rem;" onclick="removeItem(${index})">&times;</span>
+                            <span style="color:red; cursor:pointer; margin-left:15px; font-weight:bold; font-size: 1.2rem;" title="Xóa sản phẩm" onclick="removeItem(${index})">&times;</span>
                         </div>
                     </div>
                 `;
@@ -930,6 +980,23 @@
         function removeItem(index) {
             cart.splice(index, 1); // Xóa hoàn toàn sản phẩm đó khỏi giỏ
             updateCartUI();
+        }
+
+        // --- HÀM TĂNG SỐ LƯỢNG ---
+        function increaseQuantity(index) {
+            cart[index].quantity += 1;
+            updateCartUI();
+        }
+
+        // --- HÀM GIẢM SỐ LƯỢNG ---
+        function decreaseQuantity(index) {
+            if (cart[index].quantity > 1) {
+                cart[index].quantity -= 1;
+                updateCartUI();
+            } else {
+                // Nếu số lượng lùi về 0 thì tự động xóa sản phẩm đó khỏi giỏ
+                removeItem(index);
+            }
         }
 
         // --- 5. LOGIC TIẾN HÀNH ĐẶT HÀNG ---
