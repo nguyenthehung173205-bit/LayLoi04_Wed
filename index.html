@@ -695,6 +695,11 @@
                     <input type="text" id="order-address" placeholder="Số nhà, tên đường, phường, quận, TP..." required>
                 </div>
                 <div class="form-group">
+                    <label>Ghi chú đơn hàng (Nếu có)</label>
+                    <textarea id="order-note" placeholder="Thêm lời dặn dò về đơn hàng" rows="2"
+                        style="width: 100%; padding: 10px 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 1rem; outline: none; transition: border 0.3s; resize: none;"></textarea>
+                </div>
+                <div class="form-group">
                     <label>Hình thức vận chuyển (Phí ship tùy theo khu vực và loại hình vận chuyển) <span
                             style="color:red;">*</span></label>
                     <div class="radio-group">
@@ -886,7 +891,7 @@
 
         // --- 4. LOGIC XỬ LÝ GIỎ HÀNG (ĐÃ NÂNG CẤP SỐ LƯỢNG) ---
         let cart = [];
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw7mJhcXLFKh9Ith5Frn6Lq0RZx-Ej28ZXN90DEbm6_gUlYsp5aJYf4lldkLK8ltZsu/exec";
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzVqK0K9dmL_XfqnEUsbVCe8laP6JTM4hDafrpS5vtj26VVVDpFX4FPEQGV1gZEclBifQ/exec";
         const cartCount = document.getElementById('cart-count');
         const cartItemsContainer = document.getElementById('cart-items-container');
         const cartTotalPrice = document.getElementById('cart-total-price');
@@ -1013,6 +1018,7 @@
             const phone = document.getElementById('order-phone').value;
             const email = document.getElementById('order-email').value;
             const address = document.getElementById('order-address').value;
+            const note = document.getElementById('order-note').value || "Không có";
             const shippingMethod = document.querySelector('input[name="shipping-method"]:checked').value;
             const totalPrice = cartTotalPrice.innerText;
 
@@ -1036,10 +1042,10 @@
                     address,
                     shippingMethod,
                     items: itemsText,
-                    totalPrice
+                    totalPrice,
+                    note
                 })
             }).catch(err => console.log("Lỗi gửi Sheets:", err));
-
             // Hiển thị thông báo đặt hàng thành công như cũ
             Swal.fire({
                 title: "ĐẶT HÀNG THÀNH CÔNG! 🎉",
@@ -1059,6 +1065,7 @@
                     <p style="margin-bottom: 5px;"><b>Số điện thoại:</b> ${phone}</p>
                     <p style="margin-bottom: 5px;"><b>Địa chỉ:</b> ${address}</p>
                     <p style="margin-bottom: 5px;"><b>Vận chuyển:</b> ${shippingMethod}</p>
+                    <p style="margin-bottom: 5px;"><b>Ghi chú:</b> ${note}</p>
                     <hr style="margin: 15px 0; border: 0; border-top: 1px dashed #ccc;">
                     
                     <table style="width: 100%; border-collapse: collapse;">
