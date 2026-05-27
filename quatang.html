@@ -52,7 +52,6 @@
             overflow: hidden !important;
             height: 100vh !important;
             height: 100dvh !important;
-            /* ĐÃ CẬP NHẬT DVH CHO MOBILE */
         }
 
         /* Khắc phục viền xanh Autofill */
@@ -61,7 +60,7 @@
             -webkit-text-fill-color: #333 !important;
         }
 
-        /* --- HEADER & NÚT BẤM (Kế thừa từ trang chính) --- */
+        /* --- HEADER & NÚT BẤM --- */
         header {
             background-color: #ffffff;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -359,7 +358,6 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
             max-height: 90vh;
             max-height: 90dvh;
-            /* ĐÃ CẬP NHẬT DVH CHO MOBILE */
             overflow-y: auto;
             scrollbar-width: none;
             -ms-overflow-style: none;
@@ -479,7 +477,6 @@
                 padding: 20px;
             }
 
-            /* Tắt chữ giỏ hàng và ẩn nút quay lại trên điện thoại */
             .cart-text {
                 display: none;
             }
@@ -548,6 +545,7 @@
 
     <div class="products-container" id="productGrid"></div>
 
+    <!-- MODAL GIỎ HÀNG -->
     <div id="cart-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeCartModal()">&times;</span>
@@ -583,6 +581,7 @@
         </div>
     </div>
 
+    <!-- MODAL THÔNG TIN NHẬN HÀNG -->
     <div id="order-info-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeOrderModal()">&times;</span>
@@ -625,6 +624,40 @@
                 </div>
                 <button type="submit" class="btn checkout-btn" style="margin-top: 10px;">Xác nhận hoàn tất đơn
                     hàng</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL NHẬN TƯ VẤN (ĐÃ TÍCH HỢP GIỐNG TRANG CHÍNH) -->
+    <div id="contact-main-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeContactModal()">&times;</span>
+            <h2 style="margin-bottom: 15px; color: #d4af37; text-align: center;">Thông tin liên hệ</h2>
+
+            <div
+                style="background: #fdfbf7; padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #d4af37; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                <p style="margin-bottom: 8px;"><strong>🏢 Doanh nghiệp:</strong> SweetGift.</p>
+                <p style="margin-bottom: 8px;"><strong>📞 Điện thoại:</strong> 0123 456 789</p>
+                <p style="margin-bottom: 8px;"><strong>📧 Email:</strong> SweetGift@giftdesign.vn</p>
+                <p><strong>📍 Địa chỉ:</strong> 123 Đường ABC, Quận XYZ, TP. Hà Nội</p>
+            </div>
+
+            <h3 style="margin-bottom: 15px; font-size: 1.1rem; border-bottom: 1px solid #eee; padding-bottom: 10px;">Bạn
+                vui lòng điền thông tin để nhận tư vấn</h3>
+            <form onsubmit="handleMainContactSubmit(event)">
+                <div class="form-group">
+                    <label>Họ và tên của bạn <span style="color:red;">*</span></label>
+                    <input type="text" id="main-contact-name" placeholder="Ví dụ: Nguyễn Văn A" required>
+                </div>
+                <div class="form-group">
+                    <label>Số điện thoại <span style="color:red;">*</span></label>
+                    <input type="tel" id="main-contact-phone" placeholder="Ví dụ: 0912345678" required>
+                </div>
+                <div class="form-group">
+                    <label>Địa chỉ Email <span style="color:red;">*</span></label>
+                    <input type="email" id="main-contact-email" placeholder="Ví dụ: name@example.com" required>
+                </div>
+                <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">Gửi yêu cầu liên hệ</button>
             </form>
         </div>
     </div>
@@ -736,47 +769,27 @@
                 img: 'https://cellphones.com.vn/sforum/wp-content/uploads/2023/11/gio-qua-tet-gom-nhung-gi-8.jpg'
             },
 
-            // QUÀ THIẾT KẾ
+            // QUÀ THIẾT KẾ (Đã cập nhật giá hiển thị thành Liên hệ)
             {
                 id: 11,
                 subCategory: 'canhanhoa',
                 type: 'thietke',
                 tag: 'Cá nhân hóa',
                 title: 'Ly Gốm Sứ Vẽ Tay Khắc Tên',
-                priceText: '180.000 VNĐ',
-                rawPrice: 180000,
+                priceText: 'Liên hệ',
+                rawPrice: 0,
                 img: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'
             },
             {
                 id: 12,
-                subCategory: 'canhanhoa',
-                type: 'thietke',
-                tag: 'Cá nhân hóa',
-                title: 'Bình Hoa Gốm Nghệ Thuật',
-                priceText: '420.000 VNĐ',
-                rawPrice: 420000,
-                img: 'https://cdn-icons-png.flaticon.com/512/4213/4213666.png'
-            },
-            {
-                id: 13,
                 subCategory: 'soluonglon',
                 type: 'thietke',
                 tag: 'Số lượng lớn',
                 title: 'Bộ Ấm Trà In Logo Doanh Nghiệp',
-                priceText: '850.000 VNĐ',
-                rawPrice: 850000,
+                priceText: 'Liên hệ',
+                rawPrice: 0,
                 img: 'https://images.unsplash.com/photo-1607344645866-009c320b63e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60'
             },
-            {
-                id: 14,
-                subCategory: 'soluonglon',
-                type: 'thietke',
-                tag: 'Số lượng lớn',
-                title: 'Set Chén Đĩa Gốm Quà Tặng',
-                priceText: '1.200.000 VNĐ',
-                rawPrice: 1200000,
-                img: 'https://cdn-icons-png.flaticon.com/512/4213/4213962.png'
-            }
         ];
 
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzVqK0K9dmL_XfqnEUsbVCe8laP6JTM4hDafrpS5vtj26VVVDpFX4FPEQGV1gZEclBifQ/exec";
@@ -813,6 +826,14 @@
                     badgeText = 'Thiết kế';
                 }
 
+                // KHẮC PHỤC LOGIC PHÂN TÁCH NÚT "THÊM VÀO GIỎ" VÀ "NHẬN TƯ VẤN"
+                let nutHtml = "";
+                if (prod.type === 'thietke') {
+                    nutHtml = `<button class="btn-add" onclick="openContactModal()">Nhận tư vấn</button>`;
+                } else {
+                    nutHtml = `<button class="btn-add" onclick="addToCart('${prod.title}', ${prod.rawPrice})">Thêm vào giỏ</button>`;
+                }
+
                 grid.innerHTML += `
                     <div class="product-card">
                         <div class="product-img">
@@ -823,7 +844,7 @@
                             <div style="color: #d4af37; font-size: 0.8rem; font-weight: 600; margin-bottom: 5px;">🏷️ ${prod.tag}</div>
                             <h4 class="product-title">${prod.title}</h4>
                             <p class="product-price">${prod.priceText}</p>
-                            <button class="btn-add" onclick="addToCart('${prod.title}', ${prod.rawPrice})">Thêm vào giỏ</button>
+                            ${nutHtml}
                         </div>
                     </div>`;
             });
@@ -831,7 +852,6 @@
 
         // Hàm lọc các nhóm sản phẩm nhỏ
         function filterProducts(categoryKey, buttonElement) {
-            // Hủy hiệu ứng active của cả nút nhỏ và chữ mục lớn
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.group-label').forEach(lbl => lbl.classList.remove('active-label'));
 
@@ -842,14 +862,10 @@
 
         // Hàm lọc danh mục sản phẩm lớn (Cá nhân, Doanh nghiệp, Thiết kế)
         function filterMainCategory(mainType, element) {
-            // Hủy hiệu ứng active của tất cả các nút
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.group-label').forEach(lbl => lbl.classList.remove('active-label'));
 
-            // Kích hoạt màu vàng cho mục lớn được click
             element.classList.add('active-label');
-
-            // Lọc ra tất cả các sản phẩm thuộc phân loại lớn đó
             renderProducts(products.filter(p => p.type === mainType));
         }
 
@@ -863,7 +879,7 @@
             updateCartUI();
         };
 
-        // --- XỬ LÝ LƯU TRỮ GIỎ HÀNG THÔNG MINH & TỰ ĐỘNG CHUYỂN TRANG VỀ TRANG CHỦ KHI ẤN F5 ---
+        // --- XỬ LÝ LƯU TRỮ GIỎ HÀNG THÔNG MINH ---
         const navEntries = performance.getEntriesByType("navigation");
         if (navEntries.length > 0 && navEntries[0].type === "reload") {
             localStorage.removeItem('sweetgift_cart');
@@ -883,15 +899,47 @@
         // ĐIỀU KHIỂN CÁC CỬA SỔ (MODAL)
         const cartModal = document.getElementById('cart-modal');
         const orderInfoModal = document.getElementById('order-info-modal');
+        const contactMainModal = document.getElementById('contact-main-modal');
 
         document.getElementById('cart-menu-btn').onclick = () => { cartModal.style.display = "block"; document.body.classList.add('no-scroll'); }
         function closeCartModal() { cartModal.style.display = "none"; document.body.classList.remove('no-scroll'); }
         function openOrderModal() { orderInfoModal.style.display = "block"; document.body.classList.add('no-scroll'); }
         function closeOrderModal() { orderInfoModal.style.display = "none"; document.body.classList.remove('no-scroll'); }
 
+        // Điều khiển Modal nhận tư vấn
+        function openContactModal() { contactMainModal.style.display = "block"; document.body.classList.add('no-scroll'); }
+        function closeContactModal() { contactMainModal.style.display = "none"; document.body.classList.remove('no-scroll'); }
+
         window.onclick = (event) => {
             if (event.target == cartModal) closeCartModal();
             if (event.target == orderInfoModal) closeOrderModal();
+            if (event.target == contactMainModal) closeContactModal();
+        }
+
+        // CHỨC NĂNG XỬ LÝ GỬI FORM TƯ VẤN LÊN GOOGLE SHEETS
+        function handleMainContactSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('main-contact-name').value;
+            const phone = document.getElementById('main-contact-phone').value;
+            const email = document.getElementById('main-contact-email').value || "Không cung cấp";
+
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ type: 'contact', name, phone, email })
+            }).catch(err => console.log("Lỗi gửi Sheets:", err));
+
+            Swal.fire({
+                title: "Đã gửi yêu cầu!",
+                html: `Gửi yêu cầu liên hệ thành công!<br><br><b>Thông tin của bạn:</b><br>Họ và tên: ${name}<br>Số điện thoại: ${phone}<br>Email: ${email}<br><br>Đội ngũ SweetGift. sẽ trực tiếp gọi điện lại để hỗ trợ bạn nhanh nhất nhé.`,
+                icon: "success",
+                confirmButtonColor: "#d4af37",
+                confirmButtonText: "Đóng"
+            });
+
+            event.target.reset();
+            closeContactModal();
         }
 
         // CHỨC NĂNG THÊM VÀO GIỎ & HIỂN THỊ THÔNG BÁO FULL TÊN
@@ -915,7 +963,6 @@
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
             cartCount.innerText = totalItems;
 
-            // FIX LỖI: Đưa lệnh lưu vào bộ nhớ lên ngay đầu tiên để chắc chắn luôn được lưu
             localStorage.setItem('sweetgift_cart', JSON.stringify(cart));
 
             if (cart.length === 0) {
@@ -956,8 +1003,6 @@
             cartTotalPrice.innerText = total.toLocaleString('vi-VN') + " VNĐ";
         }
 
-        // TÍNH NĂNG MỚI: Tự động đồng bộ giỏ hàng theo thời gian thực (Real-time)
-        // Nếu khách mở trang chủ ở tab 1, trang mua hàng ở tab 2. Xóa đồ ở tab này thì tab kia tự mất ngay lập tức!
         window.addEventListener('storage', function (e) {
             if (e.key === 'sweetgift_cart') {
                 cart = JSON.parse(e.newValue) || [];
