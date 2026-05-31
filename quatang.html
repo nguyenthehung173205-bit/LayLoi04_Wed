@@ -163,6 +163,8 @@
             padding: 20px;
             border-radius: 12px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            /* Đảm bảo không làm tràn toàn bộ màn hình */
         }
 
         .all-products-box {
@@ -201,8 +203,28 @@
 
         .group-buttons {
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
             gap: 10px;
+            overflow-x: auto;
+            flex: 1;
+            min-width: 0;
+            padding-bottom: 8px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: #d4af37 #f9f9f9;
+        }
+
+        .group-buttons::-webkit-scrollbar {
+            height: 5px;
+        }
+
+        .group-buttons::-webkit-scrollbar-track {
+            background: #f9f9f9;
+        }
+
+        .group-buttons::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 10px;
         }
 
         .filter-btn {
@@ -215,6 +237,10 @@
             font-weight: 500;
             font-size: 0.88rem;
             transition: all 0.2s ease;
+            flex-shrink: 0;
+            /* GIỮ NGUYÊN KÍCH THƯỚC CŨ CỦA NÚT */
+            white-space: nowrap;
+            /* CHỐNG XUỐNG DÒNG CHỮ TRONG NÚT */
         }
 
         .filter-btn:hover {
@@ -288,7 +314,6 @@
 
         .badge-theomua {
             background-color: #9deba9;
-            /* Màu xanh lá tươi mát cho quà theo mùa */
         }
 
         .product-info {
@@ -478,6 +503,11 @@
                 padding-left: 8px;
             }
 
+            .group-buttons {
+                width: 100%;
+                /* KHÓA ĐỘ RỘNG KHUNG NÚT ĐỂ KÍCH HOẠT CUỘN NGANG RIÊNG BIỆT */
+            }
+
             .modal-content {
                 padding: 20px;
             }
@@ -565,7 +595,6 @@
 
     <div class="products-container" id="productGrid"></div>
 
-    <!-- MODAL GIỎ HÀNG -->
     <div id="cart-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeCartModal()">&times;</span>
@@ -601,7 +630,6 @@
         </div>
     </div>
 
-    <!-- MODAL THÔNG TIN NHẬN HÀNG -->
     <div id="order-info-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeOrderModal()">&times;</span>
@@ -648,7 +676,6 @@
         </div>
     </div>
 
-    <!-- MODAL NHẬN TƯ VẤN (ĐÃ TÍCH HỢP GIỐNG TRANG CHÍNH) -->
     <div id="contact-main-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeContactModal()">&times;</span>
